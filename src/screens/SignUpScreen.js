@@ -1,54 +1,59 @@
 import React, { useContext, useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import FormButton from '../components/FormButton'
 import FormInput from '../components/FormInput'
 import { AuthContext } from '../navigation/AuthProvider'
 
-const LoginScreen = ({ navigation }) => {
+const SignUpScreen = ({ navigation }) => {
 
     
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const {login} = useContext(AuthContext)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState()
+
+    const { register } = useContext(AuthContext)
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>RN Firebase</Text>
+            <Text style={styles.text}>Sign Up</Text>
             <FormInput
                 labelValue={email}
                 onChangeText={(userEmail) => setEmail(userEmail)}
-                placeholder='Email'
+                placeholder='Enter Email'
                 iconType='person-outline'
                 keyboardType='email-address'
                 autoCapitalize='none'
                 autoCorrect={false}
             />
+          
 
             <FormInput
                 labelValue={password}
                 onChangeText={(userPasword) => setPassword(userPasword)}
-                placeholder='Password'
+                placeholder='Enter Password'
+                iconType='lock-closed-outline'
+                secureTextEntry={true}
+            />
+
+            <FormInput
+                labelValue={confirmPassword}
+                onChangeText={(confirmPassword) => setPassword(confirmPassword)}
+                placeholder='Confirm Password'
                 iconType='lock-closed-outline'
                 secureTextEntry={true}
             />
 
             <FormButton
-                buttonTitle="Login"
-                onPress={() => login(email,password) }
+                buttonTitle="SignUp"
+                onPress={() => register(email, password)}
             />
 
-            <TouchableOpacity
-                style={styles.forgotButton}
-                onPress={() => navigation.navigate('Signup')}>
-                <Text style={styles.navButtonText}>
-                    Don't have and account? Create here
-                </Text>
-            </TouchableOpacity>
+
         </View>
     )
 }
 
-export default LoginScreen
+export default SignUpScreen
 
 const styles = StyleSheet.create({
     container: {

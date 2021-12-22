@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "138817878012",
-    "project_id": "rnfirebasedemo-7a635",
-    "storage_bucket": "rnfirebasedemo-7a635.appspot.com"
+    "project_number": "828343545455",
+    "project_id": "rnfirebasedemo-1820e",
+    "storage_bucket": "rnfirebasedemo-1820e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:138817878012:android:94dad10b21bc1e145c2479",
+        "mobilesdk_app_id": "1:828343545455:android:d3c30bc8d1389e1be2679a",
         "android_client_info": {
           "package_name": "com.rnfirebasedemo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "138817878012-3prfdakogvpvpflsmdasq5legjcgh96m.apps.googleusercontent.com",
+          "client_id": "828343545455-s1hnkju7rrkre6ro314drfpasitl4ijp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAvbNk4PjpxAFND4SPafIWAbfeEnE2Uy6c"
+          "current_key": "AIzaSyBa9kBdz16PqFx5TjSieoCqLV2XFJ7aqoM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "138817878012-3prfdakogvpvpflsmdasq5legjcgh96m.apps.googleusercontent.com",
+              "client_id": "828343545455-s1hnkju7rrkre6ro314drfpasitl4ijp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

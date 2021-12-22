@@ -1,8 +1,8 @@
 import React from 'react'
-import { Button, Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { Image} from 'react-native'
 import Onboarding from 'react-native-onboarding-swiper';
 
-const OnboardingScreen = ({ navigation }) => {
+const OnboardScreen = ({ navigation }) => {
     return (
         <Onboarding
             onSkip={() => navigation.replace("Login")}
@@ -31,12 +31,5 @@ const OnboardingScreen = ({ navigation }) => {
     )
 }
 
-export default OnboardingScreen
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-})
+export default OnboardScreen
