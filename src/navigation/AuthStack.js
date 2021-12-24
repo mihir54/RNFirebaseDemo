@@ -10,39 +10,41 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 const Stack = createNativeStackNavigator();
 
-const AuthStack = () => {
+const AuthStack = () => {    
 
-    // const [isFirtlaunch, setIsFirtlaunch] = useState(null)
+    const [isFirtlaunch, setIsFirtlaunch] = useState(true)
+    let routeName;
 
-    // useEffect(() => {
-    //   AsyncStorage.getItem("alreadyLaunch").then(value => {
-    //     if (value == nul) {
-    //       AsyncStorage.setItem("alreadyLaunch", true)
-    //       setIsFirtlaunch(true)
-    //     } else {
-    //       setIsFirtlaunch(false)
-    //     }
-    //   })
-    // }, [])
+    useEffect(() => {
+        AsyncStorage.getItem('alreadyLaunch').then(value => {
+            if (value == null) {
+                AsyncStorage.setItem('alreadyLaunch', 'true')
+                setIsFirtlaunch(true)
+            } else {
+                setIsFirtlaunch(false)
+            }
+        })
+    }, [])
 
-    // if (isFirtlaunch == null) {
-    //   return null;
-    // } else if (isFirtlaunch == true) {
-    //   return (
-    //     // <NavigationContainer>
-    //       <AppStack.Navigator>
-    //         <AppStack.Screen name="Onboarding" component={OnboardingScreen} />
-    //         <AppStack.Screen name="Login" component={LoginScreen} />
-    //       </AppStack.Navigator>
-    //     // </NavigationContainer>
-    //   )
-    // } else {
-    //   return <LoginScreen />
-    // }
+    if (isFirtlaunch === null) {
+        return null;
+    } else if (isFirtlaunch == true) {
+        routeName = 'Onboarding'
+        //   return (
+        //     // <NavigationContainer>
+        //       <AppStack.Navigator>
+        //         <AppStack.Screen name="Onboarding" component={OnboardingScreen} />
+        //         <AppStack.Screen name="Login" component={LoginScreen} />
+        //       </AppStack.Navigator>
+        //     // </NavigationContainer>
+        //   )
+    } else {
+        routeName = 'Login'
+        //   return <LoginScreen />
+    }
 
     return (
-        // <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName={routeName}>
             <Stack.Screen
                 name="Onboarding"
                 component={OnboardScreen}
@@ -64,7 +66,7 @@ const AuthStack = () => {
                     title: '',
                     headerStyle: {
                         backgroundColor: '#f9fafd',
-                        shadowColor:'#f9fafd',
+                        shadowColor: '#f9fafd',
                         elevation: 0
                     },
                     headerLeft: () => (
@@ -82,7 +84,6 @@ const AuthStack = () => {
                 }
             />
         </Stack.Navigator>
-        // </NavigationContainer>
     )
 
 }
