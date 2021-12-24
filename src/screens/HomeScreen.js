@@ -1,6 +1,9 @@
 import React, { useContext } from 'react'
-import { Button, StyleSheet, Text, View,Image } from 'react-native'
+import { Button, StyleSheet, Text, View, Image, FlatList } from 'react-native'
 import { AuthContext } from '../navigation/AuthProvider'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import PostCard from '../components/PostCard'
+import { Posts } from '../utils/Post'
 
 const HomeScreen = ({ navigation }) => {
 
@@ -8,14 +11,13 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.card}>
-                <View style={styles.userInfo}>
-                    <Image                       
-                        style={styles.userImage}
-                        source={require("../assets/users/user-1.jpg")}
-                    ></Image>
-                </View>
-            </View>
+            <FlatList
+                data={Posts}
+                renderItem={({ item }) =>
+                    <PostCard item={item} />
+                }
+                keyExtractor={item => item.id}
+                showsVerticalScrollIndicator={false} />
         </View>
     )
 }
@@ -25,23 +27,8 @@ export default HomeScreen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        // justifyContent: 'center',
         alignItems: 'center',
-        padding: 20
+        padding: 10
     },
-    card: {
-        width: "100%",
-        marginBottom: 20,
-        borderRadius: 10,
-        backgroundColor: '#f8f8f8'
-    },
-    userInfo: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start'
-    },
-    userImage: {
-        width: 50,
-        height: 50,
-        borderRadius: 25
-    }
 })

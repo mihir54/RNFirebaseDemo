@@ -47,14 +47,14 @@ const FeedStack = ({ navigation }) => (
                             name='plus'
                             size={22}
                             color="#2e64e5"
-                            onPress={() => navigation.navigate('AddPost')}
+                            onPress={() => navigation.navigate('Post')}
                         />
                     </View>
                 )
             }}
         />
         <Stack.Screen
-            name='AddPost'
+            name='Post'
             component={AddPostScreen}
             options={{
                 headerTitleAlign: 'center',
@@ -159,7 +159,7 @@ const AppStack = () => {
             />
 
             <Tab.Screen
-                name='MessageStack'
+                name='Message'
                 component={MessageStack}
                 options={() => ({
                     tabBarIcon: ({ color, size }) => (
@@ -170,7 +170,7 @@ const AppStack = () => {
                     )
                 })} />
             <Tab.Screen
-                name='ProfileStack'
+                name='Profile'
                 component={ProfileStack}
                 options={() => ({
                     tabBarIcon: ({ color, size }) => (
