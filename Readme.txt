@@ -5,3 +5,6 @@ yarn add @react-native-firebase/app
 
 3. # Install the authentication module
 yarn add @react-native-firebase/auth
+
+4.# Install the firestore module
+yarn add @react-native-firebase/firestore
