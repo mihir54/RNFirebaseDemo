@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import LoginScreen from '../screens/LoginScreen';
 import OnboardScreen from '../screens/OnboardScreen';
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {    
 
-    const [isFirtlaunch, setIsFirtlaunch] = useState(true)
+    const [isFirstLaunch, setIsFirtlaunch] = useState(null)
     let routeName;
 
     useEffect(() => {
@@ -26,21 +26,12 @@ const AuthStack = () => {
         })
     }, [])
 
-    if (isFirtlaunch === null) {
+    if (isFirstLaunch == null) {
         return null;
-    } else if (isFirtlaunch == true) {
-        routeName = 'Onboarding'
-        //   return (
-        //     // <NavigationContainer>
-        //       <AppStack.Navigator>
-        //         <AppStack.Screen name="Onboarding" component={OnboardingScreen} />
-        //         <AppStack.Screen name="Login" component={LoginScreen} />
-        //       </AppStack.Navigator>
-        //     // </NavigationContainer>
-        //   )
+    } else if (isFirstLaunch == true) {
+        routeName = 'Onboarding';
     } else {
-        routeName = 'Login'
-        //   return <LoginScreen />
+        routeName = 'Login';
     }
 
     return (

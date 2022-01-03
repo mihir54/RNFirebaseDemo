@@ -45,14 +45,15 @@ const PostCard = ({ item, onDelete }) => {
             <View>
                 <Text style={styles.postText}>{item.post}</Text>
             </View>
-            {
-                item.postImg != null ?
-                    <Image
-                        style={styles.postImage}
-                        source={{ uri: item.postImg }}
-                    /> : <View style={styles.devider} />
-            }
-
+            <View style={styles.imageContainer}>
+                {
+                    item.postImg != null ?
+                        <Image
+                            style={styles.postImage}
+                            source={{ uri: item.postImg }}
+                        /> : <View style={styles.devider} />
+                }
+            </View>
             <View style={styles.interactionWrapper}>
                 {
                     item.liked == true ?
@@ -148,8 +149,8 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     postImage: {
-        width: '100%',
-        height: 250,
+        width: windowWidth,
+        height: 250,       
     },
     interactionWrapper: {
         flexDirection: 'row',
@@ -204,5 +205,11 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         width: '90%',
         alignSelf: 'center'
+    },
+    imageContainer:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
+    
 })
