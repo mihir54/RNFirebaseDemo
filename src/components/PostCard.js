@@ -1,24 +1,30 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { AuthContext } from '../navigation/AuthProvider'
+import moment from 'moment'
+import { windowWidth } from '../utils/Dimentions'
 
-const PostScreen = ({ item }) => {
 
-    let likeText,commentText
+const PostCard = ({ item, onDelete }) => {
 
-    if(item.likes == 1){
+    const { user } = useContext(AuthContext)
+
+    let likeText, commentText
+
+    if (item.likes == 1) {
         likeText = '1 Like'
-    }else if(item.likes > 1){
+    } else if (item.likes > 1) {
         likeText = `${item.likes} Likes`
-    }else {
+    } else {
         likeText = 'Like'
     }
 
-    if(item.comments == 1){
+    if (item.comments == 1) {
         commentText = '1 Comment'
-    }else if(item.comments > 1){
+    } else if (item.comments > 1) {
         commentText = `${item.comments} Comments`
-    }else {
+    } else {
         commentText = 'Comment'
     }
 
@@ -27,11 +33,11 @@ const PostScreen = ({ item }) => {
             <View style={styles.userInfo}>
                 <Image
                     style={styles.userImage}
-                    source={item.userImg}
+                    source={{ uri: item.userImg }}
                 />
                 <View style={styles.userInfoView}>
                     <Text style={styles.userName}>{item.userName}</Text>
-                    <Text style={styles.postTime}>{item.postTime}</Text>
+                    <Text style={styles.postTime}>{moment(item.postTime.toDate()).fromNow()}</Text>
                 </View>
 
 
@@ -40,10 +46,10 @@ const PostScreen = ({ item }) => {
                 <Text style={styles.postText}>{item.post}</Text>
             </View>
             {
-                item.postImg != 'none' ?
+                item.postImg != null ?
                     <Image
                         style={styles.postImage}
-                        source={item.postImg}
+                        source={{ uri: item.postImg }}
                     /> : <View style={styles.devider} />
             }
 
@@ -62,35 +68,48 @@ const PostScreen = ({ item }) => {
                         <TouchableOpacity style={styles.interactionInactive}>
                             <Ionicons
                                 name="heart-outline"
-                                size={20}                                
+                                size={20}
                                 color='#333'
                             />
                             <Text style={styles.interactionTextInActive}>{likeText}</Text>
                         </TouchableOpacity>
                 }
 
-                <View style={styles.interaction}>
+                <TouchableOpacity style={styles.interaction}>
                     <Ionicons
                         name="chatbubble-outline"
                         size={20}
                         color='#333'
                     />
                     <Text style={styles.interactionText}>{commentText}</Text>
-                </View>
+                </TouchableOpacity>
+
+                {
+                    user.uid == item.userId ?
+                        <TouchableOpacity style={styles.interaction} onPress={() => onDelete(item.id)}>
+                            <Ionicons
+                                name="trash-bin-outline"
+                                size={20}
+                                color='#333'
+                            />
+                            <Text style={styles.interactionText}>Delete</Text>
+                        </TouchableOpacity> : null
+                }
+
             </View>
         </View>
     )
 }
 
-export default PostScreen
+export default PostCard
 
 const styles = StyleSheet.create({
     card: {
-        width: '100%',
+        width: windowWidth,
         marginBottom: 20,
         borderRadius: 10,
         backgroundColor: '#f8f8f8',
-        padding: 10
+        padding: 10,
     },
     userInfo: {
         flexDirection: 'row',
@@ -142,7 +161,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderRadius: 5,
         padding: 1,
-       
+
     },
     interactionActive: {
         justifyContent: 'center',
@@ -157,7 +176,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 1,
         backgroundColor: 'transparent'
-        
+
     },
     interactionTextInActive: {
         fontWeight: 'bold',

@@ -159,7 +159,7 @@ const AppStack = () => {
             />
 
             <Tab.Screen
-                name='Message'
+                name='MessageStack'
                 component={MessageStack}
                 options={() => ({
                     tabBarIcon: ({ color, size }) => (
@@ -170,7 +170,7 @@ const AppStack = () => {
                     )
                 })} />
             <Tab.Screen
-                name='Profile'
+                name='ProfileStack'
                 component={ProfileStack}
                 options={() => ({
                     tabBarIcon: ({ color, size }) => (
