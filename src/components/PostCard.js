@@ -6,7 +6,9 @@ import moment from 'moment'
 import { windowWidth } from '../utils/Dimentions'
 
 
-const PostCard = ({ item, onDelete }) => {
+const PostCard = ({ item, onDelete, onLike }) => {
+
+    console.log("item::::::::", item);
 
     const { user } = useContext(AuthContext)
 
@@ -37,7 +39,7 @@ const PostCard = ({ item, onDelete }) => {
                 />
                 <View style={styles.userInfoView}>
                     <Text style={styles.userName}>{item.userName}</Text>
-                    <Text style={styles.postTime}>{moment(item.postTime.toDate()).fromNow()}</Text>
+                    {/* <Text style={styles.postTime}>{moment(item.postTime.toDate()).fromNow()}</Text> */}
                 </View>
 
 
@@ -57,7 +59,7 @@ const PostCard = ({ item, onDelete }) => {
             <View style={styles.interactionWrapper}>
                 {
                     item.liked == true ?
-                        <TouchableOpacity style={styles.interactionActive}>
+                        <TouchableOpacity style={styles.interactionActive} >
                             <Ionicons
                                 name="heart"
                                 size={20}
@@ -66,7 +68,7 @@ const PostCard = ({ item, onDelete }) => {
                             <Text style={styles.interactionTextActive}>{likeText}</Text>
                         </TouchableOpacity>
                         :
-                        <TouchableOpacity style={styles.interactionInactive}>
+                        <TouchableOpacity style={styles.interactionInactive} onPress={() => onLike(item)}>
                             <Ionicons
                                 name="heart-outline"
                                 size={20}
@@ -150,7 +152,7 @@ const styles = StyleSheet.create({
     },
     postImage: {
         width: windowWidth,
-        height: 250,       
+        height: 250,
     },
     interactionWrapper: {
         flexDirection: 'row',
@@ -206,10 +208,10 @@ const styles = StyleSheet.create({
         width: '90%',
         alignSelf: 'center'
     },
-    imageContainer:{
+    imageContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     }
-    
+
 })

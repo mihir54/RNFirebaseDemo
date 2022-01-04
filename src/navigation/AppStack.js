@@ -12,6 +12,7 @@ import MessageScreen from '../screens/MessageScreen'
 import AddPostScreen from '../screens/AddPostScreen'
 import ChatScreen from '../screens/ChatScreen'
 import EditProfileScreen from '../screens/EditProfileScreen'
+import FavoritePost from '../screens/FavoritePost'
 
 const Stack = createNativeStackNavigator()
 const Tab = createMaterialBottomTabNavigator()
@@ -42,7 +43,14 @@ const FeedStack = ({ navigation }) => (
                 //     elevation: 0
                 // },
                 headerRight: () => (
-                    <View style={{ marginRight: 10 }}>
+                    <View style={{ marginRight: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                        <FontAwesome
+                            name='heart'
+                            size={22}
+                            color="#2e64e5"
+                            style={{ padding: 10 }}
+                            onPress={() => navigation.navigate('FavPost')}
+                        />
                         <FontAwesome
                             name='plus'
                             size={22}
@@ -73,6 +81,28 @@ const FeedStack = ({ navigation }) => (
                 ),
             }}
         />
+
+        <Stack.Screen
+            name='FavPost'
+            component={FavoritePost}
+            options={{
+                headerTitleAlign: 'center',
+                // headerStyle: {
+                //     backgroundColor:'#2e64e515',
+
+                // }
+                headerBackTitleVisible: false,
+                headerBackImage: () => (
+                    <View style={{ marginLeft: 15 }}>
+                        <Ionicons
+                            name="arrow-back"
+                            size={25}
+                            color="#2e64e5" />
+                    </View>
+                ),
+            }}
+        />
+
         <Stack.Screen
             name="HomeProfile"
             component={ProfileScreen}

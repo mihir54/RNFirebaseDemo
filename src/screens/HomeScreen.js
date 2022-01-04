@@ -7,16 +7,20 @@ import { Posts } from '../utils/Post'
 import firestore from '@react-native-firebase/firestore'
 import storage from '@react-native-firebase/storage'
 import { windowWidth } from '../utils/Dimentions'
+import { useDispatch, useSelector } from 'react-redux'
+import { addFavPost } from '../redux/action/FavPostAction'
 
 const HomeScreen = ({ navigation }) => {
 
     const [post, setPost] = useState(null)
     const [loading, setLoading] = useState(true)
     const [deletedPost, setDeletedPost] = useState(false)
+    const dispatch = useDispatch()
+     let list = useSelector(state => state.favPost_Reducer.favPostList)
 
     const fetchPost = async () => {
         try {
-            const list = []
+            // const list = []
 
             await firestore()
                 .collection('Posts')
@@ -24,9 +28,10 @@ const HomeScreen = ({ navigation }) => {
                 .get()
                 .then((querySnapshot) => {
                     console.log('Total Post: ' + querySnapshot.size);
+                    const listLocal =[]
                     querySnapshot.forEach(doc => {
                         const { userId, post, postImg, postTime, likes, comments } = doc.data()
-                        list.push({
+                        listLocal.push({
                             id: doc.id,
                             userId,
                             userName: 'Mihir',
@@ -39,6 +44,7 @@ const HomeScreen = ({ navigation }) => {
                             comments,
                         })
                     })
+                    list= listLocal
                 })
             setPost(list)
             if (loading) {
@@ -117,12 +123,18 @@ const HomeScreen = ({ navigation }) => {
         )
     }
 
+    const handleLikePost = (likedPost) => {
+        list.push(likedPost)
+        console.log("handleLikePost:::::::::::: ",list);
+        dispatch(addFavPost(list))
+    }
+
     return (
         <View style={styles.container}>
             <FlatList
                 data={post}
-                renderItem={({ item }) =>
-                    <PostCard item={item} onDelete={handleDeletePost} />
+                renderItem={({item}) =>
+                    <PostCard item={item} onDelete={handleDeletePost} onLike = {(item)=>handleLikePost(item)} />
                 }
                 keyExtractor={item => item.id}
                 showsVerticalScrollIndicator={false} />
