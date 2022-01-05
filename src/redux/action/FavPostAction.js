@@ -1,4 +1,4 @@
-import { ADD_FAV_POST } from "./Types";
+import { ADD_FAV_POST, DELETE_FAV_POST } from "./Types";
 
 export const addFavPost = (post) => (
     {
@@ -6,3 +6,10 @@ export const addFavPost = (post) => (
         data: post
     }
 );
+
+export const deletePost = (id) => (
+    {
+        type: DELETE_FAV_POST,
+        key: id
+    }
+)

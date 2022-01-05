@@ -16,7 +16,7 @@ const HomeScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(true)
     const [deletedPost, setDeletedPost] = useState(false)
     const dispatch = useDispatch()
-     let list = useSelector(state => state.favPost_Reducer.favPostList)
+    let list = useSelector(state => state.favPost_Reducer.favPostList)
 
     const fetchPost = async () => {
         try {
@@ -28,7 +28,7 @@ const HomeScreen = ({ navigation }) => {
                 .get()
                 .then((querySnapshot) => {
                     console.log('Total Post: ' + querySnapshot.size);
-                    const listLocal =[]
+                    const listLocal = []
                     querySnapshot.forEach(doc => {
                         const { userId, post, postImg, postTime, likes, comments } = doc.data()
                         listLocal.push({
@@ -44,7 +44,7 @@ const HomeScreen = ({ navigation }) => {
                             comments,
                         })
                     })
-                    list= listLocal
+                    list = listLocal
                 })
             setPost(list)
             if (loading) {
@@ -124,8 +124,15 @@ const HomeScreen = ({ navigation }) => {
     }
 
     const handleLikePost = (likedPost) => {
+
+        for (let i = 0; i < likedPost.length; i++) {
+            if(likedPost.id === list[i].id){
+                return;
+            }
+        }
+
         list.push(likedPost)
-        console.log("handleLikePost:::::::::::: ",list);
+        console.log("handleLikePost:::::::::::: ", list);
         dispatch(addFavPost(list))
     }
 
@@ -133,8 +140,8 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.container}>
             <FlatList
                 data={post}
-                renderItem={({item}) =>
-                    <PostCard item={item} onDelete={handleDeletePost} onLike = {(item)=>handleLikePost(item)} />
+                renderItem={({ item }) =>
+                    <PostCard item={item} onDelete={handleDeletePost} onLike={(item) => handleLikePost(item)} isFromFavPost={false} />
                 }
                 keyExtractor={item => item.id}
                 showsVerticalScrollIndicator={false} />

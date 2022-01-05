@@ -6,9 +6,8 @@ import moment from 'moment'
 import { windowWidth } from '../utils/Dimentions'
 
 
-const PostCard = ({ item, onDelete, onLike }) => {
+const PostCard = ({ item, onDelete, onLike, isFromFavPost = false }) => {
 
-    console.log("item::::::::", item);
 
     const { user } = useContext(AuthContext)
 
@@ -57,38 +56,45 @@ const PostCard = ({ item, onDelete, onLike }) => {
                 }
             </View>
             <View style={styles.interactionWrapper}>
+
                 {
-                    item.liked == true ?
-                        <TouchableOpacity style={styles.interactionActive} >
+                    !isFromFavPost ?
+                        item.liked == true ?
+                            <TouchableOpacity style={styles.interactionActive} >
+                                <Ionicons
+                                    name="heart"
+                                    size={20}
+                                    color='#2e64e5'
+                                />
+                                <Text style={styles.interactionTextActive}>{likeText}</Text>
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity style={styles.interactionInactive} onPress={() => onLike(item)}>
+                                <Ionicons
+                                    name="heart-outline"
+                                    size={20}
+                                    color='#333'
+                                />
+                                <Text style={styles.interactionTextInActive}>{likeText}</Text>
+                            </TouchableOpacity>
+                        : null
+                }
+
+                {
+                    !isFromFavPost ?
+                        <TouchableOpacity style={styles.interaction}>
                             <Ionicons
-                                name="heart"
-                                size={20}
-                                color='#2e64e5'
-                            />
-                            <Text style={styles.interactionTextActive}>{likeText}</Text>
-                        </TouchableOpacity>
-                        :
-                        <TouchableOpacity style={styles.interactionInactive} onPress={() => onLike(item)}>
-                            <Ionicons
-                                name="heart-outline"
+                                name="chatbubble-outline"
                                 size={20}
                                 color='#333'
                             />
-                            <Text style={styles.interactionTextInActive}>{likeText}</Text>
-                        </TouchableOpacity>
+                            <Text style={styles.interactionText}>{commentText}</Text>
+                        </TouchableOpacity> : null
                 }
 
-                <TouchableOpacity style={styles.interaction}>
-                    <Ionicons
-                        name="chatbubble-outline"
-                        size={20}
-                        color='#333'
-                    />
-                    <Text style={styles.interactionText}>{commentText}</Text>
-                </TouchableOpacity>
 
                 {
-                    user.uid == item.userId ?
+                    user.uid == item.userId && !isFromFavPost ?
                         <TouchableOpacity style={styles.interaction} onPress={() => onDelete(item.id)}>
                             <Ionicons
                                 name="trash-bin-outline"
@@ -98,6 +104,19 @@ const PostCard = ({ item, onDelete, onLike }) => {
                             <Text style={styles.interactionText}>Delete</Text>
                         </TouchableOpacity> : null
                 }
+                {
+                    isFromFavPost ?
+                        <TouchableOpacity style={styles.interaction} onPress={() => onDelete(item.id)}>
+                            <Ionicons
+                                name="trash-bin-outline"
+                                size={20}
+                                color='#333'
+                            />
+                            <Text style={styles.interactionText}>Delete</Text>
+                        </TouchableOpacity> : null
+                }
+
+
 
             </View>
         </View>
